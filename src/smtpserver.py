@@ -128,7 +128,7 @@ class SMTPFactory(protocol.ServerFactory):
         self.baseDir = baseDir
         self.validDomains = validDomains
 
-        print(validDomains)
+        print("smtp factory valid domains", validDomains)
 
 
 
@@ -155,7 +155,7 @@ if __name__ == "__main__":
         mailboxDir = sys.argv[s+1] # Lugar donde se guardarán los correos
         port = sys.argv[p+1] # Puerto al que escuchará el server
     except NameError as e:
-        print(e)
+        print("a", e)
     
 
     reactor.listenTCP(int(port), SMTPFactory(mailboxDir, domains))   

@@ -1,0 +1,11 @@
+Received: by RicardoM from 127.0.0.1 with ESMTP ; Sat, 04 Sep 2021 22:44:05 -0600
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Correo de prueba
+From: testEmisor1@localhost
+To: testReceptor1@example.com, testReceptor2@example.com,
+ testReceptor3@example.com, testReceptor4@example.com,
+ testReceptor5@example.com, testReceptor6@example.com
+
+Hello, How Are you

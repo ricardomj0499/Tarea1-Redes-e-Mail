@@ -1,4 +1,4 @@
-from email import charset
+from email import charset, message
 import sys
 
 from email.mime.text import MIMEText
@@ -9,32 +9,51 @@ from twisted.python import log
 
 # log.startLogging(sys.stdout)
 
-host = "127.0.0.1"
-sender = "testEmisor1@localhost"
-recipients = ["testReceptor1@example.com"]
-
-msg = MIMEText("""Hello, How Are you 
-a
-""")
-msg["Subject"] = "Correo de prueba"
-msg["From"] = sender
-msg["To"] = ", ".join(recipients)
-
-deferred = sendmail(host, sender, recipients, msg   , port=1234)
-deferred.addBoth(lambda result: reactor.stop())
-
-reactor.run()
-
 import csv
 
-with open('employee_birthday.txt') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
-    line_count = 0
-    for row in csv_reader:
-        if line_count == 0:
-            print(f'Column names are {", ".join(row)}')
-            line_count += 1
-        else:
-            print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
-            line_count += 1
-    print(f'Processed {line_count} lines.')
+if __name__ == "__main__":
+
+    h = c = m = 0
+    mailServer = csvFile = messageS = ''
+
+    listRecipientes = []
+
+    try:
+        h = sys.argv.index('-h')
+        c = sys.argv.index('-c')
+        # m = sys.argv.index('-m')
+
+        mailServer = (sys.argv)[h+1] # Dominios que acepta
+        print("mail", mailServer)
+        csvFile = sys.argv[c+1] # Lugar donde se guardarán los correos
+        print("este es csv",csvFile)
+        # messageS = sys.argv[m+1:] # Puerto al que escuchará el server
+        print("messfa",messageS)
+    except NameError as e:
+        print(e)
+
+    with open(csvFile, 'r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            print(row[0])
+            listRecipientes.append(row[0])
+        print(listRecipientes)
+
+
+    host = "127.0.0.1" # 
+    sender = "testEmisor1@localhost" # 
+
+    
+    MSGa = ' '.join([str(item) for item in messageS])
+    print(MSGa)
+    msg = MIMEText("""Hello, How Are you
+    afadf""")
+    msg["Subject"] = "Correo de prueba"
+    msg["From"] = sender
+    msg["To"] = ", ".join(listRecipientes)
+
+    deferred = sendmail(host, sender, listRecipientes, msg, port=1234)
+    deferred.addBoth(lambda result: reactor.stop())
+
+    reactor.run()

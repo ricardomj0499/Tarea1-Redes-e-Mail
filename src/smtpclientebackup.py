@@ -21,13 +21,13 @@ if __name__ == "__main__":
     try:
         h = sys.argv.index('-h')
         c = sys.argv.index('-c')
-        m = sys.argv.index('-m')
+        # m = sys.argv.index('-m')
 
         mailServer = (sys.argv)[h+1] # Dominios que acepta
         print("mail", mailServer)
         csvFile = sys.argv[c+1] # Lugar donde se guardarán los correos
         print("este es csv",csvFile)
-        messageS = sys.argv[m+1:] # Puerto al que escuchará el server
+        # messageS = sys.argv[m+1:] # Puerto al que escuchará el server
         print("messfa",messageS)
     except NameError as e:
         print(e)
@@ -45,14 +45,15 @@ if __name__ == "__main__":
     sender = "testEmisor1@localhost" # 
 
     
-    MSG = ' '.join([str(item) for item in messageS])
-    print(MSG)
-    msg = MIMEText(MSG)
+    MSGa = ' '.join([str(item) for item in messageS])
+    print(MSGa)
+    msg = MIMEText("""Hello, How Are you
+    afadf""")
     msg["Subject"] = "Correo de prueba"
     msg["From"] = sender
     msg["To"] = ", ".join(listRecipientes)
 
-    deferred = sendmail(host, sender, listRecipientes, msg   , port=1234)
+    deferred = sendmail(host, sender, listRecipientes, msg, port=1234)
     deferred.addBoth(lambda result: reactor.stop())
 
     reactor.run()
