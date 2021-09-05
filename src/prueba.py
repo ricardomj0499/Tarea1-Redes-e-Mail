@@ -1,12 +1,16 @@
 print("inicio prueba")
 import sys
 
-print("aaaa +++++ aaaa")
-
 print('Number of Arguments: ', len(sys.argv))
-print('A: ', str(sys.argv)[1])
-print("mid prueba")
 
-print("aaaa +++++ aaaa")
+try:
+    d = sys.argv.index('-d')
+    s = sys.argv.index('-s')
+    p = sys.argv.index('-p')
 
-print("final prueba")   
+    dominios = sys.argv[d+1]
+    mailStorage = sys.argv[s+1]
+    port = sys.argv[p+1]
+except NameError as e:
+    print(e)
+

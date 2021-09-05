@@ -1,3 +1,4 @@
+from email import charset
 import sys
 
 from email.mime.text import MIMEText
@@ -6,35 +7,34 @@ from twisted.internet import reactor
 from twisted.mail.smtp import sendmail
 from twisted.python import log
 
-#
-# Errata note: your ISP may block connections to port 25 from residential IP
-# addresses as a spam prevention measure. If this is the case, the sendmail
-# function will retry transmission a few times and then eventually give up:
-#
-#    SMTP Client retrying server. Retry: 5
-#    SMTP Client retrying server. Retry: 4
-#    SMTP Client retrying server. Retry: 3
-#    SMTP Client retrying server. Retry: 2
-#    SMTP Client retrying server. Retry: 1
-#    Stopping factory <twisted.mail.smtp.SMTPSenderFactory instance at 0x1485ea8>
-#    Main loop terminated.
-#
-
 # log.startLogging(sys.stdout)
 
-host = "localhost"
-sender = "ricardo@gmail.com"
-recipients = ["ricardo@gmail.com,test@localhost,test@example.com"]
+host = "127.0.0.1"
+sender = "testEmisor1@localhost"
+recipients = ["testReceptor1@example.com"]
 
-msg = MIMEText("""Violets are blue
-Twisted is helping
-Forge e-mails to you!
+msg = MIMEText("""Hello, How Are you 
+a
 """)
-msg["Subject"] = "Roses are red"
-msg["From"] = '"Secret Admirer" <%s>' % (sender,)
+msg["Subject"] = "Correo de prueba"
+msg["From"] = sender
 msg["To"] = ", ".join(recipients)
 
-deferred = sendmail(host, sender, recipients, msg.as_string().encode("UTF-8"), port=1234)
-deferred.addBoth(print)
+deferred = sendmail(host, sender, recipients, msg   , port=1234)
+deferred.addBoth(lambda result: reactor.stop())
 
 reactor.run()
+
+import csv
+
+with open('employee_birthday.txt') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    line_count = 0
+    for row in csv_reader:
+        if line_count == 0:
+            print(f'Column names are {", ".join(row)}')
+            line_count += 1
+        else:
+            print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
+            line_count += 1
+    print(f'Processed {line_count} lines.')
