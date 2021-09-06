@@ -18,7 +18,7 @@ from email.header import Header # Usado principalmente para aplicaciones que ocu
 Acá se implementa una interface para recibir emails
 '''
 @implementer(smtp.IMessage)
-class MaildirMessageWriter(object):
+class EscritorEmail(object):
 
     '''
     Inicializador de la clase, Recibe el nombre del lugar a donde se guardarán los mensajes
@@ -66,7 +66,7 @@ class MaildirMessageWriter(object):
 
 
 @implementer(smtp.IMessageDelivery)
-class LocalDelivery(object):
+class LocalService(object):
 
     def __init__(self, baseDir, validDomains):
         if not os.path.isdir(baseDir):
@@ -101,7 +101,7 @@ class LocalDelivery(object):
 
         print("Accepting mail for %s..." % user.dest)
 
-        return lambda: MaildirMessageWriter(self._getAddressDir(str(user.dest)))
+        return lambda: EscritorEmail(self._getAddressDir(str(user.dest)))
 
 
     def _getAddressDir(self, address):
@@ -135,7 +135,7 @@ class SMTPFactory(protocol.ServerFactory):
 
 
     def buildProtocol(self, addr):
-        delivery = LocalDelivery(self.baseDir, self.validDomains)
+        delivery = LocalService(self.baseDir, self.validDomains)
         smtpProtocol = smtp.SMTP(delivery)
 
         smtpProtocol.factory = self
