@@ -1,0 +1,11 @@
+Received: by RicardoM from 127.0.0.1 with ESMTP ; Sun, 05 Sep 2021 23:01:35 -0600
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Correo de prueba numero 435
+From: testEmisor1@localhost
+To: testReceptor1@example.com, testReceptor2@example.com,
+ testReceptor4@example.com, ricardo@gmail.com, testReceptor5@example.com,
+ testReceptor6@example.com
+
+hola como esas

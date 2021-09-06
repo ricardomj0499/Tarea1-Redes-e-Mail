@@ -1,4 +1,6 @@
 # imports
+# command
+# python3 smtpserver.py -d localhost,example.com,gmail.com -s /home/ricardo/Desktop/semestre8/redes/Tarea1-Redes-e-Mail/storage/ -p 1234
 
 import os
 from sys import setdlopenflags
@@ -145,7 +147,7 @@ if __name__ == "__main__":
     import sys
     d = s = p = 0
     domains = mailboxDir =  port = ''
-
+    
     try:
         d = sys.argv.index('-d')
         s = sys.argv.index('-s')
